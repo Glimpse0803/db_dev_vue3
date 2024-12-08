@@ -1,17 +1,15 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import axios from '@/plugins/axios'; // 使用配置好的 axios 实例
 
-// 定义响应式数据
 const books = ref([]);
 
-// 在组件挂载时获取数据
 onMounted(async () => {
   try {
-    // 确保这是正确的 API 地址
-    const response = await axios.get('http://127.0.0.1:500/vue3-yii2/backend/web/index.php?r=books/index'); // 后端 API 地址
-    if (response.data.success) {
-      books.value = response.data.data; // 将获取的数据赋值给响应式变量
+    const response = await axios.get('api/books');
+    if (response.data.message === 'success') {
+      books.value = response.data.data;
+      console.log('Books data:', books.value);
     } else {
       console.error('Failed to fetch books data');
     }
