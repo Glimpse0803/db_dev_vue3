@@ -6,10 +6,10 @@ const books = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('api/books');
+    const response = await axios.get('books');
     if (response.data.message === 'success') {
       books.value = response.data.data;
-      console.log('Books data:', books.value);
+      console.log(books.value);
     } else {
       console.error('Failed to fetch books data');
     }
@@ -17,10 +17,13 @@ onMounted(async () => {
     console.error('Error fetching data:', error);
   }
 });
+import Navbar from '@/components/Navbar.vue'
+
 </script>
 
 <template>
   <div>
+    <Navbar />
     <table border="1" cellspacing="0" cellpadding="5">
       <thead>
       <tr>
