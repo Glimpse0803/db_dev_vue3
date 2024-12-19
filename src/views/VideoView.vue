@@ -32,42 +32,27 @@ onMounted(async () => {
       <!-- 第一行 -->
       <div class="row f_row">
         <div class="box" v-for="(video, index) in videos.slice(0, 3)" :key="'f_row-' + index">
-          <iframe :src="video.Video_URL"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen>
-          </iframe>
+          <router-link class="pic" to="/play">
+<!--          <router-link class="pic" :to="{ path: '/play', query: { videoId: ${Video_URL} } }">-->
+            <img :src="require(`@/${video.Picture_URL}`)" alt="" />
+            <p class="video_title">{{video.Title}}</p>
+          </router-link>
         </div>
       </div>
 
       <!-- 第二行 -->
       <div class="row s_row">
         <div class="box" v-for="(video, index) in videos.slice(3, 6)" :key="'s_row-' + index">
-          {{video.Video_URL}}
-          <p>video.Video_URL</p>
-          <iframe :src="video.Video_URL"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen>
-          </iframe>
-          <p>video.Video_URL</p>
+          <img :src="require(`@/${video.Picture_URL}`)" alt="" />
+          <p class="video_title">{{video.Title}}</p>
         </div>
       </div>
 
       <!-- 第三行 -->
       <div class="row th_row">
         <div class="box" v-for="(video, index) in videos.slice(6, 9)" :key="'th_row-' + index">
-          <iframe :src="video.Video_URL"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen>
-          </iframe>
+          <img :src="require(`@/${video.Picture_URL}`)" alt="" />
+          <p class="video_title">{{video.Title}}</p>
         </div>
       </div>
     </div>
@@ -102,13 +87,46 @@ body {
 }
 
 .box {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 15px; /* 圆角边框 */
+  display: flex;
+  flex-direction: column; /* 子元素垂直排列 */
+  background-color: #ffffff;
   position: relative;
-  overflow: hidden;
-  padding-top: 56.25%; /* 保持 16:9 长宽比 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  overflow: hidden; /* 确保放大时图片不会超出容器 */
+  height: 300px; /* 示例高度 */
+  transition: transform 0.3s ease; /* 平滑过渡效果（针对容器整体） */
+}
+
+.box img {
+  flex: 0 0 80%; /* 固定图片占高度的 80% */
+  width: 100%; /* 图片宽度占满容器 */
+  object-fit: cover; /* 图片自适应裁剪 */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* 添加阴影效果 */
+  transition: transform 0.3s ease; /* 鼠标悬停时的平滑过渡效果 */
+}
+
+.box p {
+  flex: 0 0 20%; /* 固定标题占高度的 20% */
+  display: flex; /* 为标题本身设置弹性布局 */
+  align-items: center; /* 垂直方向居中对齐 */
+  justify-content: center; /* 水平方向居中对齐 */
+  text-align: center; /* 文本居中对齐 */
+  font-size: 16px;
+  margin: 0; /* 移除默认 margin，避免高度错乱 */
+}
+
+/* 鼠标悬停效果 */
+.box:hover img {
+  transform: scale(1.05); /* 鼠标悬停时图片放大 */
+}
+
+.box:hover p {
+  font-weight: bold; /* 鼠标悬停时文字加粗 */
+}
+
+.pic {
+  all: unset; /* 重置所有样式 */
+  display: contents; /* 让它只作为内容容器 */
 }
 
 iframe {

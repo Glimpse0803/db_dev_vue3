@@ -44,7 +44,7 @@
 
 <template>
   <div class="home">
-    <router-link class="b_link" to="/video">
+    <router-link class="b_link" to="/videos">
       <button id="enter">START</button>
     </router-link>
   </div>

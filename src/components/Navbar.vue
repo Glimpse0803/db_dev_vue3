@@ -6,7 +6,7 @@
   <nav class="navbar">
     <!-- 右侧部分 -->
     <div class="navbar-right">
-      <router-link class="nav-link" to="/video">视频</router-link>
+      <router-link class="nav-link" to="/videos">视频</router-link>
       <router-link class="nav-link" to="/model">大模型体验</router-link>
       <router-link class="nav-link" to="/login">登录</router-link>
       <router-link class="nav-link" to="/msg">留言板</router-link>

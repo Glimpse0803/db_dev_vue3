@@ -2,8 +2,9 @@ import axios from "axios";
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: 'http://localhost:500/vue3-yii2/backend/web/index.php/', // 你的API地址
-  timeout: 5000
+  // baseURL: 'http://localhost:500/vue3-yii2/backend/web/index.php/', // 你的API地址
+    baseURL: 'http://localhost:8000/api',
+    timeout: 5000
 });
 
 // 请求拦截器

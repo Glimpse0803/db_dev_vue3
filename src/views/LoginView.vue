@@ -52,7 +52,7 @@ export default {
 
       // 向后端发送注册请求
       axios
-          .post('http://localhost:8080/api/signup?username=' + username + '&password=' + password)
+          .post('http://localhost:500/api/signup?username=' + username + '&password=' + password)
           .then((response) => {
             const status = response.data.status
             if (status === 1) {
@@ -77,7 +77,7 @@ export default {
 
       // 向后端发送登录请求
       axios
-          .get('http://localhost:8080/api/login?username=' + username + '&password=' + password)
+          .get('http://localhost:500/api/login?username=' + username + '&password=' + password)
           .then((response) => {
             const status = response.data.status
             if (status === 1) {

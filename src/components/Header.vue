@@ -3,11 +3,11 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 // 图片名称数组（不包含路径部分）
 const images = [
-  '1.jpg',
+  '1.webp',
   '2.png',
-  '3.jpg',
-  '4.png',
-  '5.jpg'
+  '3.webp',
+  '4.jpg',
+  '5.png'
 ];
 
 const currentIndex = ref(0);
@@ -41,7 +41,7 @@ onUnmounted(() => {
       <transition name="fade" mode="out-in">
         <img
             :key="currentIndex"
-            :src="require(`@/assets/${images[currentIndex]}`)"
+            :src="require(`@/assets/images/roll${images[currentIndex]}`)"
             alt="carousel image"
             class="carousel-image"
         />
