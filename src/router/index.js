@@ -4,7 +4,7 @@ import Book from '@/views/Book.vue';
 import Video from '@/views/VideoView.vue';
 import Login from '@/views/LoginView.vue';
 import Msg from '@/views/MsgView.vue';
-import Model from "@/views/ModelView.vue";
+import Article from "@/views/ArticleView.vue";
 import Play from "@/views/VideoplayView.vue";
 
 
@@ -35,9 +35,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/model',
-    name: 'model',
-    component: Model
+    path: '/article',
+    name: 'article',
+    component: Article
   },
   {
     path: '/play',
@@ -50,6 +50,18 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const Username = sessionStorage.getItem('Username')
+  const Password = sessionStorage.getItem('Password')
+
+  // 检查 Session Storage 中的值
+  if (!Username && !Password && to.path !== '/login') {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

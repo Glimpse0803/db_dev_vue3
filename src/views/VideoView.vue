@@ -7,7 +7,7 @@ import Navbar from '@/components/Navbar.vue'
 const videos = ref([]);
 onMounted(async () => {
   try {
-    const response = await axios.get('/videos');
+    const response = await axios.get('/api/video');
     if(response.data.message === 'success') {
       videos.value = response.data.data;
       console.log("vd data: ",videos.value);
@@ -32,8 +32,7 @@ onMounted(async () => {
       <!-- 第一行 -->
       <div class="row f_row">
         <div class="box" v-for="(video, index) in videos.slice(0, 3)" :key="'f_row-' + index">
-          <router-link class="pic" to="/play">
-<!--          <router-link class="pic" :to="{ path: '/play', query: { videoId: ${Video_URL} } }">-->
+          <router-link class="pic" :to="{ path: '/play', query: { videoId: video.Video_ID, videoName: video.Video_URL } }">
             <img :src="require(`@/${video.Picture_URL}`)" alt="" />
             <p class="video_title">{{video.Title}}</p>
           </router-link>
@@ -43,16 +42,20 @@ onMounted(async () => {
       <!-- 第二行 -->
       <div class="row s_row">
         <div class="box" v-for="(video, index) in videos.slice(3, 6)" :key="'s_row-' + index">
-          <img :src="require(`@/${video.Picture_URL}`)" alt="" />
-          <p class="video_title">{{video.Title}}</p>
+          <router-link class="pic" :to="{ path: '/play', query: { videoId: video.Video_ID, videoName: video.Video_URL } }">
+            <img :src="require(`@/${video.Picture_URL}`)" alt="" />
+            <p class="video_title">{{video.Title}}</p>
+          </router-link>
         </div>
       </div>
 
       <!-- 第三行 -->
       <div class="row th_row">
         <div class="box" v-for="(video, index) in videos.slice(6, 9)" :key="'th_row-' + index">
-          <img :src="require(`@/${video.Picture_URL}`)" alt="" />
-          <p class="video_title">{{video.Title}}</p>
+          <router-link class="pic" :to="{ path: '/play', query: { videoId: video.Video_ID, videoName: video.Video_URL } }">
+            <img :src="require(`@/${video.Picture_URL}`)" alt="" />
+            <p class="video_title">{{video.Title}}</p>
+          </router-link>
         </div>
       </div>
     </div>
