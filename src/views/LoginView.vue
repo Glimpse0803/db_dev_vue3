@@ -38,21 +38,24 @@ export default {
       const password = this.registerData.password
 
       if (this.registerData.password !== this.registerData.confirmPassword) {
-        this.$message.error('密码和确认密码不一致')
+        console.error('密码和确认密码不一致')
         return
       }
 
       // 密码要求的正则表达式
       const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 
-      if (!passwordPattern.test(password)) {
-        this.$message.error('密码至少为8位数，并且要包含大小写字母数字数')
-        return
-      }
+      // if (!passwordPattern.test(password)) {
+      //   console.error('密码至少为8位数，并且要包含大小写字母数字数')
+      //   return
+      // }
 
       // 向后端发送注册请求
       axios
-          .post('http://localhost:500/api/signup?username=' + username + '&password=' + password)
+          .post('http://localhost:500/vue3-yii2/backend/web/index.php/api/users', {
+            username: username,
+            password: password
+          })
           .then((response) => {
             const status = response.data.status
             if (status === 1) {
@@ -62,12 +65,11 @@ export default {
               this.toggleForm('login')
             } else if (status === 0) {
               // 注册失败
-              this.$message.error('用户已存在')
+              console.error('用户已存在')
             }
           })
           .catch((error) => {
             console.error('登录失败:', error)
-            this.$message.error('登录失败')
           })
     },
     login() {
@@ -75,29 +77,34 @@ export default {
       const username = this.loginData.username
       const password = this.loginData.password
 
-      // 向后端发送登录请求
+      // 使用 POST 请求进行登录
       axios
-          .get('http://localhost:500/api/login?username=' + username + '&password=' + password)
+          .post('http://localhost:500/vue3-yii2/backend/web/index.php/api/users/login', {
+            username: username,
+            password: password
+          })
           .then((response) => {
             const status = response.data.status
             if (status === 1) {
               // 登录成功
               sessionStorage.setItem('Username', username)
               sessionStorage.setItem('Password', password)
-              this.$message.success('登录成功')
+              console.error('登录成功')//????????????????????????????
 
-              // 导航到 /home 路径
+              // 导航到首页
               setTimeout(() => {
                 window.location.href = '/'
               }, 2000)
             } else {
               // 登录失败
-              this.$message.error('用户名或密码错误')
+              console.error('用户名或密码错误')
             }
           })
           .catch((error) => {
             console.error('登录失败:', error)
-            this.$message.error('登录失败')
+          })
+          .catch((error) => {
+            console.error('登录失败:', error)
           })
     }
   }
@@ -105,7 +112,7 @@ export default {
 </script>
 
 <template>
-  <Navbar />
+<!--  <Navbar />-->
   <div class="login">
     <div class="register-box" :class="{ 'slide-up': isLoginBoxUp }">
       <h2 class="register-title" @click="toggleForm('register')"><span>没有账号，去</span>注册</h2>

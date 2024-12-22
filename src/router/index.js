@@ -52,16 +52,16 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const Username = sessionStorage.getItem('Username')
-  const Password = sessionStorage.getItem('Password')
+// router.beforeEach((to, from, next) => {
+//   const Username = sessionStorage.getItem('Username')
+//   const Password = sessionStorage.getItem('Password')
 
   // 检查 Session Storage 中的值
-  if (!Username && !Password && to.path !== '/login') {
-    next('/login')
-  } else {
-    next()
-  }
-})
+//   if (!Username && !Password && to.path !== '/login') {
+//     next('/login')
+//   } else {
+//     next()
+//   }
+// })
 
 export default router
