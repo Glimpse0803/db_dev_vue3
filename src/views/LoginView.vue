@@ -52,7 +52,7 @@ export default {
 
       // 向后端发送注册请求
       axios
-          .post('http://localhost:500/vue3-yii2/backend/web/index.php/api/users', {
+          .post('http://localhost/backend/web/api/users', {
             username: username,
             password: password
           })
@@ -79,12 +79,12 @@ export default {
 
       // 使用 POST 请求进行登录
       axios
-          .post('http://localhost:500/vue3-yii2/backend/web/index.php/api/users/login', {
+          .post('http://localhost/backend/web/api/users/login', {
             username: username,
             password: password
           })
           .then((response) => {
-            const status = response.data.status
+            const status = response.data.data.status
             if (status === 1) {
               // 登录成功
               sessionStorage.setItem('Username', username)
